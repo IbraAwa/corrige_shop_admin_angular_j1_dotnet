@@ -1,13 +1,28 @@
 <h2>Catalogue</h2>
 <p>Articles dans le panier : {{ cartCount() }}</p>
 
-<article class="card" [class.out-of-stock]="product().stock === 0">
-  <img [src]="product().imageUrl" [alt]="product().name" />
-  <h3>{{ product().name | titlecase }}</h3>
-  <p class="category">{{ product().category }}</p>
-  <p class="price">{{ product().price | currency: 'EUR' }}</p>
-  <p class="stock">{{ product().stock | stockLabel }}</p>
-  <button (click)="addToCart()" [disabled]="product().stock === 0">
-    Ajouter au panier
-  </button>
-</article>
+<br/>
+<input type="text" [(ngModel)]="categoryChoice">
+
+<div class="wrapper">
+  @for (product of products(); track product.id) {
+    @if(product.category === categoryChoice() || categoryChoice().length < 4) {
+      <article class="card" [class.out-of-stock]="product.stock === 0" [appLowStock]="product.stock">
+        <img [src]="product.imageUrl" [alt]="product.name" />
+        <h3>{{ product.name | titlecase }}</h3>
+        <p class="category">{{ product.category }}</p>
+        <p class="price">{{ product.price | currency: 'EUR' }}</p>
+        <p class="stock">{{ product.stock | stockLabel }}</p>
+        <button (click)="addToCart(product)" [disabled]="product.stock === 0">
+          Ajouter au panier
+        </button>
+        @switch (product.category) {
+          @case("Informatique") {<p>GEEK</p>}
+          @case("Audio") {<p>STYLER</p>}
+        }
+      </article>
+    }
+  } @empty {
+    <p> Je n'ai pas de produit dans mon catalogue</p>
+  }
+</div>

@@ -1,28 +1,27 @@
 import { Component, signal } from '@angular/core';
 import { CurrencyPipe, TitleCasePipe } from '@angular/common';
-import { Product } from '../../models/product';
+import { Product, PRODUCTS } from '../../models/product';
 import { StockLabelPipe } from '../../pipes/stock-label-pipe';
+import { FormsModule } from '@angular/forms';
+import { LowStock } from '../../Directives/low-stock';
 
 @Component({
   selector: 'app-catalogue-page',
-  imports: [CurrencyPipe, TitleCasePipe, StockLabelPipe],
+  imports: [CurrencyPipe, TitleCasePipe, StockLabelPipe, FormsModule, LowStock],
   templateUrl: './catalogue-page.html',
   styleUrl: './catalogue-page.scss',
 })
 export class CataloguePage {
-  product = signal<Product>({
-    id: 1,
-    name: 'clavier mécanique sans fil',
-    price: 89.9,
-    stock: 3,
-    category: 'Périphériques',
-    imageUrl: 'products/clavier.svg',
-  });
 
+  products = signal<Product[]>([...PRODUCTS])
+  categoryChoice = signal<string>("")
   cartCount = signal(0);
 
-  addToCart() {
+  addToCart(productParameter : Product) {
     this.cartCount.update((c) => c + 1);
-    this.product.update((p) => ({ ...p, stock: p.stock - 1 }));
+   //console.log(product.name)
+   this.products.update((products) => products.map(product =>
+    product.id === productParameter.id ? {...product, stock: productParameter.stock - 1} : product
+   ))
   }
 }
