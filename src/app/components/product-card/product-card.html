@@ -1,0 +1,19 @@
+  <article class="card" [class.out-of-stock]="product().stock" [appLowStock]="product().stock">
+    <img [alt]="product().name" />
+    <h3>{{ product().name | titlecase }}</h3>
+    <p class="category">{{ product().category }}</p>
+    <p class="price">{{ product().price | currency: 'EUR' }}</p>
+    <p class="stock">{{ product().stock | stockLabel }}</p>
+
+    @if (product().stock > 0) {
+      <app-quantity-picker [(quantity)]="quantity"/>
+    }
+
+    <button (click)="onAddToCart(product())" [disabled]="product().stock === 0">
+      Ajouter au panier
+    </button>
+    @switch (product().category) {
+      @case("Informatique") {<p>GEEK</p>}
+      @case("Audio") {<p>STYLER</p>}
+    }
+  </article>
