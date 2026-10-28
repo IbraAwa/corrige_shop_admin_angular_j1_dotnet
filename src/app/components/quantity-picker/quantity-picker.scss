@@ -1,0 +1,36 @@
+.picker {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--bg-app);
+  color: var(--text-main);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+button:hover:not(:disabled) {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+button:disabled {
+  color: #c0c4cc;
+  cursor: not-allowed;
+}
+
+span {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 600;
+}

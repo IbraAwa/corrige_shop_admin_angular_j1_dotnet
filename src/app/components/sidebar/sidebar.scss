@@ -1,1 +1,71 @@
-nav { display: flex; flex-direction: column; gap: 12px; }
+nav {
+  position: sticky;
+  top: calc(var(--header-height) + 1.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-title {
+  margin: 0 0 0.5rem;
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+a {
+  display: block;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid transparent;
+  color: var(--text-main);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  background: var(--primary-soft);
+  border-left-color: var(--primary);
+  color: var(--primary);
+}
+
+/* lien de la page courante (classe ajoutée par routerLinkActive) */
+a.active {
+  background: var(--primary-soft);
+  border-left-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* --- Petit écran : liens côte à côte --- */
+@media (max-width: 768px) {
+  nav {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .nav-title {
+    display: none;
+  }
+
+  a {
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+
+  a:hover,
+  a.active {
+    border-bottom-color: var(--primary);
+  }
+}

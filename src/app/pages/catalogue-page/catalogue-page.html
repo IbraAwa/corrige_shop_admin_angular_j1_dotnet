@@ -1,14 +1,14 @@
-<h2>Catalogue</h2>
-<p>Articles dans le panier : {{ cartCount() }}</p>
-
-<br/>
+<header class="page-header">
+  <h2>Catalogue</h2>
+  <p class="cart-count">Articles dans le panier : <strong>{{ cartCount() }}</strong></p>
+</header>
 
 <div class="wrapper">
   @for (product of products(); track product.id) {
-    @if(product.category === categoryChoice() || categoryChoice().length < 4) {
+    @if (product.category === categoryChoice() || categoryChoice().length < 4) {
       <app-product-card [product]="product" (addToCart)="addToCart($event)" />
     }
   } @empty {
-    <p> Je n'ai pas de produit dans mon catalogue</p>
+    <p class="empty-state">Je n'ai pas de produit dans mon catalogue.</p>
   }
 </div>

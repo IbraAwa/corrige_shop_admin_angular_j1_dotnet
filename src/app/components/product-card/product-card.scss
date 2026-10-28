@@ -1,31 +1,18 @@
-/* --- Variables & Thème --- */
-:root {
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --bg-card: #ffffff;
-  --text-main: #1f2937;
-  --text-muted: #6b7280;
-  --border-radius: 16px;
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* --- Les variables (--primary, --radius...) sont dans src/styles.scss --- */
 
 /* --- Base de la Carte --- */
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 320px;
+  height: 100%;
   background-color: var(--bg-card);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius);
   padding: 1.25rem;
   box-shadow: var(--shadow-sm);
-  border: 1px solid #f3f4f6;
+  border: 1px solid var(--border);
   transition: var(--transition);
   overflow: hidden;
-  box-sizing: border-box;
 }
 
 .card:hover {
@@ -36,25 +23,24 @@
 /* --- Image Produit --- */
 .card > img {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: calc(var(--border-radius) - 6px);
-  background-color: #f9fafb;
+  border-radius: calc(var(--radius) - 6px);
+  background-color: #f3f4f6;
   margin-bottom: 1rem;
 }
 
 /* --- Titre & Catégorie --- */
 .card h3 {
   margin: 0 0 0.25rem 0;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-main);
-  line-height: 1.4;
 }
 
 .card .category {
   margin: 0 0 0.75rem 0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -70,34 +56,24 @@
 }
 
 .card .stock {
-  display: inline-flex;
-  align-items: center;
+  align-self: flex-start;
   margin: 0 0 1rem 0;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #059669;
-}
-
-/* --- Directive Low Stock (Exemple visuel) --- */
-.card[applowstock],
-.card.low-stock {
-  border-color: #fde68a;
-}
-
-.card[applowstock] .stock,
-.card.low-stock .stock {
-  color: #d97706;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--success);
+  background: #ecfdf5;
 }
 
 /* --- État Hors Stock --- */
 .card.out-of-stock {
   opacity: 0.75;
-  background-color: #fafafa;
 }
 
 .card.out-of-stock .stock {
-  color: #dc2626;
-  font-weight: 600;
+  color: var(--danger);
+  background: #fef2f2;
 }
 
 .card.out-of-stock > img {
@@ -110,28 +86,29 @@
   margin-bottom: 1rem;
 }
 
-/* --- Bouton d'action --- */
+/* --- Bouton d'action (margin-top: auto => toujours collé en bas de la carte) --- */
 .card button {
   width: 100%;
   padding: 0.75rem 1rem;
   margin-top: auto;
   border: none;
-  border-radius: calc(var(--border-radius) - 8px);
+  border-radius: var(--radius-sm);
   background-color: var(--primary);
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
 }
 
 .card button:hover:not(:disabled) {
   background-color: var(--primary-hover);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.card button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .card button:disabled {
@@ -141,7 +118,7 @@
 }
 
 /* --- Badges Spéciaux (Switch case GEEK / STYLER) --- */
-.card > p:last-child {
+.card .badge {
   position: absolute;
   top: 1.75rem;
   right: 1.75rem;

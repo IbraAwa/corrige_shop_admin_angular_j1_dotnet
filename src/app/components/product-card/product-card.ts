@@ -20,7 +20,7 @@ addToCart = output<productLine>()
   templateUrl: './product-card.html',
 })
 export class ProductCard {
-  // grâce au input mon parent qui m'utilise pourra m'envoyé le produit qu'il veut afficher
+  // grâce à l'input, mon parent qui m'utilise pourra m'envoyer le produit qu'il veut afficher
   product = input.required<Product>()
 
   addToCart = output<{product: Product; quantity: number}>()
@@ -28,13 +28,13 @@ export class ProductCard {
   quantity = signal<number>(1)
 
   onAddToCart(productParam : Product) {
-   // on prend directement la valeur reçu par le parent
-   // et quand on clique sur le bouton on l'envoit dans emit
+   // on prend directement la valeur reçue du parent
+   // et quand on clique sur le bouton on l'envoie avec emit
    // this.addToCart.emit(this.product())
 
-   // on prend en parametre un produit et c'est ce qu'on reçoit en parametre
+   // on prend un produit en paramètre et c'est ce qu'on reçoit en paramètre
    // qu'on envoie au parent
-   this.addToCart.emit({ product: productParam, quantity: this.quantity()}) // {} => nouveau objet
+   this.addToCart.emit({ product: productParam, quantity: this.quantity()}) // {} => nouvel objet
    this.quantity.set(1)
 
   }

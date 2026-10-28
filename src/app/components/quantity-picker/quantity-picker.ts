@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 
 @Component({
   imports: [],
@@ -9,12 +9,21 @@ import { Component, model } from '@angular/core';
 export class QuantityPicker {
   quantity = model.required<number>()
 
+  // le parent nous envoie le stock pour ne pas dépasser la quantité disponible
+  max = input.required<number>()
+
   decrement() : void {
-    this.quantity.update((quant) => quant - 1);
+    // on ne descend jamais en dessous de 1
+    if (this.quantity() > 1) {
+      this.quantity.update((quant) => quant - 1);
+    }
   }
 
   increment() : void {
-    this.quantity.update((quant) => quant + 1 )
+    // on ne monte jamais au-dessus du stock
+    if (this.quantity() < this.max()) {
+      this.quantity.update((quant) => quant + 1 )
+    }
   }
 
 }

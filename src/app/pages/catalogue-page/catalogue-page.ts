@@ -22,7 +22,7 @@ export class CataloguePage {
     this.cartCount.update((c) => c + event.quantity);
    //console.log(product.name)
    this.products.update((products) => products.map(product =>
-    product.id === product.id ? {...product, stock: product.stock - event.quantity}: product
+    product.id === event.product.id ? {...product, stock: product.stock - event.quantity}: product
    ))
   }
 }
