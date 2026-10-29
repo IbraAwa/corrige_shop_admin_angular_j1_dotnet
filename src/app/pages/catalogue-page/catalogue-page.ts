@@ -74,5 +74,9 @@ export class CataloguePage {
     this.cart.update((list) => [...list, event ])
   }
 
+  // LINKEDSIGNAL QUI PERMET de choisir notre categorie this.categoryChoice();
+  // deux bouton pour les deux catégorie quand on clique sur un bouton le linked signal doit faire qlq chose
+  // if dans le for
+
 
 }
