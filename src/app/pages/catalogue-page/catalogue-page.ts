@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, linkedSignal, signal, WritableSignal } from '@angular/core';
 import { Product, PRODUCTS } from '../../models/product';
 import { ProductCard } from '../../components/product-card/product-card';
 import { cartItemModel } from '../../components/cart-items/cart-item.model';
@@ -14,8 +14,8 @@ import { CurrencyPipe } from '@angular/common';
 export class CataloguePage {
 
   products = signal<Product[]>([...PRODUCTS])
-  categoryChoice = signal<string>("")
   cartCount = signal(0);
+  categories = signal<string[]>(["Informatique", "Audio"])
 
   cart = signal<cartItemModel[]>([])
   // reduce() parcourir un tableau et accumulé le résultat grâce au total :
@@ -76,7 +76,21 @@ export class CataloguePage {
 
   // LINKEDSIGNAL QUI PERMET de choisir notre categorie this.categoryChoice();
   // deux bouton pour les deux catégorie quand on clique sur un bouton le linked signal doit faire qlq chose
-  // if dans le for
+  // if dans le
 
+  // Je crée une liste de produit avec seulement la catégorie Audio
+  nbrAudio = computed(() => this.products().filter(product => product.category === 'Audio'))
 
+  // Je crée jne liste de produit avec seulement la catégorie Inforatique
+  nbrInformatique = computed(() => this.products().filter(product => product.category === 'Informatique'))
+
+  // mon linked signal calcule quelle tableau de produit est le plus grand
+  // SI AUDIO est plus grand que informatique notre selected va s'initialsier a 'Audio'
+  // SI Audio est plus petit que informatique notre select va s'initialiser a 'Informatique'
+  selected : WritableSignal<string> = linkedSignal(() => this.nbrAudio().length > this.nbrInformatique().length ? 'Audio' : 'Informatique');
+
+  choisi(categoryChoice : string) : void {
+    this.selected.set(categoryChoice);
+
+}
 }

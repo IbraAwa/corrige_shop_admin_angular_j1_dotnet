@@ -1,10 +1,16 @@
 <header class="page-header">
   <h2>Catalogue</h2>
+
+  <h3>AFFICHER :
+    <button (click)="choisi('')">Toute catégorie</button>
+    <button (click)="choisi('Audio')">Audio</button>
+    <button (click)="choisi('Informatique')">Informatique</button>
+  </h3>
 </header>
 
 <div class="wrapper">
   @for (product of products(); track product.id) {
-    @if (product.category === categoryChoice() || categoryChoice().length < 4) {
+    @if (product.category === selected() || selected() === '') {
       <app-product-card [product]="product" (addToCart)="addToCart($event)" />
     }
   } @empty {
