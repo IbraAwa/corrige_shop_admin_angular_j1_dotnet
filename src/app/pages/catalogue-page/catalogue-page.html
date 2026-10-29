@@ -12,3 +12,28 @@
   }
 </div>
 
+<h1>PANIER</h1>
+
+<table border="3px">
+  <thead>
+    <td>Nom produit</td>
+    <td>Prix</td>
+    <td>Quantité</td>
+    <td>Sous-total HTVA</td>
+  </thead>
+  <tbody>
+    @for (item of cart(); track $index) {
+      <tr>
+         <app-cart-items [ligneItemCart]="item"/>
+      </tr>
+    }
+  </tbody>
+</table>
+<br>
+
+<article>
+  <h2>Bilan panier</h2>
+  <p>total HTVA : {{totalHTVA() | currency: 'EUR'}}</p>
+  <p>TVA : {{TVA() | currency: 'EUR'}} </p>
+  <p>total TTC : {{TotalTTC() | currency: 'EUR'}}</p>
+</article>

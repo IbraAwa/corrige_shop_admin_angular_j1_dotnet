@@ -1,0 +1,4 @@
+// vous rendez votre selector donc votre component dans notre cas ici cart-item invisible
+:host {
+  display: contents;
+}
