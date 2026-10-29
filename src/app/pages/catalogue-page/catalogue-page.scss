@@ -1,14 +1,6 @@
 /* --- Les styles de la carte sont dans product-card.scss --- */
 /* (avec l'encapsulation d'Angular, un .card écrit ici ne toucherait pas le composant enfant) */
 
-.page-header .cart-count {
-  margin: 0;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  background: var(--primary-soft);
-  color: var(--primary);
-  font-size: 0.9rem;
-}
 
 /* --- Grille de produits : autant de colonnes que la place le permet --- */
 .wrapper {
@@ -19,4 +11,18 @@
 
 .wrapper .empty-state {
   grid-column: 1 / -1;
+}
+
+/* --- Boutons de filtre par catégorie --- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* bouton de la catégorie actuellement sélectionnée */
+.filters button.active {
+  background: var(--primary);
+  color: white;
 }

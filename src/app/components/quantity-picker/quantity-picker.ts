@@ -6,7 +6,16 @@ import { Component, input, model } from '@angular/core';
   styleUrl: './quantity-picker.scss',
   templateUrl: './quantity-picker.html',
 })
+// Composant réutilisable : boutons - et + pour choisir une quantité
+// utilisé dans product-card (avant l'ajout au panier) et dans cart-items (dans le panier)
+// il ne sait pas d'où viennent les chiffres : il reçoit une quantité + un max, et renvoie la nouvelle quantité
 export class QuantityPicker {
+  // model = input + output en un seul :
+  //  - input "quantity" : le parent nous donne la quantité de départ
+  //  - output "quantityChange" : créé AUTOMATIQUEMENT par Angular (nom du model + "Change", nom obligatoire)
+  //    à chaque set()/update() sur quantity, Angular émet quantityChange avec la nouvelle valeur
+  // c'est ce qui permet d'écrire [(quantity)]="..." côté parent (double liaison, "banana in a box") :
+  //  [(quantity)]="x"  ===  [quantity]="x" (quantityChange)="x = $event"
   quantity = model.required<number>()
 
   // le parent nous envoie le stock pour ne pas dépasser la quantité disponible
